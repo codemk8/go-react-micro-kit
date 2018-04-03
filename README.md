@@ -38,7 +38,7 @@ Above command will run the react server on <http://localhost:1235>. You can visi
 
 ```bash
 cd $GOROOT/src/github.com/codemk8/go-react-micro-kit
-go run main.go
+go run main.go --alsologtostderr
 ```
 
 Above command will run the main server on <http://localhost:1234>. Visiting it will show the same page as in Step 1.
