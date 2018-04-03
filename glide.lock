@@ -1,0 +1,8 @@
+hash: 841fa7b6f34c8834ea9003222b85595be1ffa9e99f5b3c57022f3112bba018f4
+updated: 2018-04-03T21:57:37.295064523+08:00
+imports:
+- name: github.com/emicklei/go-restful
+  version: 26b41036311f2da8242db402557a0dbd09dc83da
+  subpackages:
+  - log
+testImports: []
