@@ -11,10 +11,10 @@ So you have built a web service using the popular React/Angular/Vue javascript f
 
 The benefits are:
 
-1. No toolchain changes for web servers
+1. No toolchain changes for the web server
 2. Still enjoy the hot loading during web development
 
-The architecture looks like this:
+The architecture now looks like this:
 
 ![architecture](./docs/arch.png)
 
@@ -32,7 +32,7 @@ npm install
 npm start
 ```
 
-Above command will run the react server on <http://localhost:1235>. You can visit it directly on the browswer.
+Above command will run the react server on <http://localhost:1235>. You can visit it directly on the browser.
 
 ### Step 2: Run the Golang main server
 
