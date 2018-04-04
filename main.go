@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
-	"strings"
 
 	"github.com/golang/glog"
 )
@@ -25,21 +24,23 @@ func New(target string) *Prox {
 }
 
 func (p *Prox) handle(w http.ResponseWriter, r *http.Request) {
-	if strings.HasPrefix(r.URL.Path, "/api") {
-		list := []string{"Wash up", "Eat some cheese", "Take a nap"}
-		js, err := json.Marshal(list)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		w.Header().Set("Content-Type", "application/json")
-		w.Write(js)
-		glog.Infof("get api call, currently returning a todo list")
-		return
-	}
-
 	w.Header().Set("X-GoProxy", "GoProxy")
 	p.proxy.ServeHTTP(w, r)
+}
+
+func otherHandle(w http.ResponseWriter, r *http.Request) {
+	// This shows a simple microservice inside the golang server
+	// It could also call other services
+	list := []string{"Wash up", "Eat some cheese", "Take a nap"}
+	js, err := json.Marshal(list)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(js)
+	glog.Infof("api call, currently returning a todo list")
+	return
 }
 
 func main() {
@@ -61,8 +62,10 @@ func main() {
 
 	// proxy
 	proxy := New(*url)
-	// server
+	// Serve the root for proxy
 	http.HandleFunc("/", proxy.handle)
+	// Other microservices
+	http.HandleFunc("/api", otherHandle)
 	go func() { glog.Error(http.ListenAndServe(*port, nil)) }()
 	select {}
 }
