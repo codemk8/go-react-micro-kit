@@ -28,9 +28,24 @@ var App = createReactClass(
 
 var TodoComponent = createReactClass({
     getInitialState: function(){
+        // server-less demo use this
+        // return {
+        //    todos: ['wash up', 'eat some cheese', 'take a nap'],
+        // }
+        const xhr = new XMLHttpRequest()
+        xhr.open('get', 'http://localhost:1234/api/todo')
+        xhr.addEventListener('load', () => {
+            if (xhr.status === 200) {
+                console.log("received ijnitial todos")
+                var todo=JSON.parse(xhr.response);
+                this.setState({todos: todo})
+            } else { 
+              console.log("error getting initial list, check main server?")
+            }
+        });
+        xhr.send();
         return {
-            todos: ['wash up', 'eat some cheese', 'take a nap'],
-            age: 30
+            todos: []  // return a temporary empty list
         }
     },
     onDelete: function(item) {
@@ -55,7 +70,7 @@ var TodoComponent = createReactClass({
                 <ul> {todos}
                 </ul>
                 <AddItem onAdd={this.onAdd}/>
-                            </div>
+            </div>
         );
     },
 

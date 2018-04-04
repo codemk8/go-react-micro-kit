@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"net/http"
 	"net/http/httputil"
@@ -25,7 +26,15 @@ func New(target string) *Prox {
 
 func (p *Prox) handle(w http.ResponseWriter, r *http.Request) {
 	if strings.HasPrefix(r.URL.Path, "/api") {
-		glog.Infof("get api call, redirect to internal service")
+		list := []string{"Wash up", "Eat some cheese", "Take a nap"}
+		js, err := json.Marshal(list)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.Write(js)
+		glog.Infof("get api call, currently returning a todo list")
 		return
 	}
 
