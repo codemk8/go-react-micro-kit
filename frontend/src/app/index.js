@@ -53,9 +53,8 @@ var TodoComponent = createReactClass({
         var updatedTodos = this.state.todos.filter(function(val, index) {
             return item !== val;
         })
-
-        this.setState({ todos: updatedTodos}
-        )
+        // TODO: sync with server 
+        this.setState({ todos: updatedTodos})
     },
     render: function() {
         var todos = this.state.todos
@@ -77,12 +76,13 @@ var TodoComponent = createReactClass({
     onAdd: function(item) {
         var todos = this.state.todos
         todos.push(item)
+        // TODO: sync with server 
         this.setState({todos: todos})
     },
 
     // lifecycle functions
     componentWillMount: function(){
-        console.log('compopnent willmount')
+        console.log('component will mount')
     },
     componentDidMount: function(){
         console.log('compopnent did mount')
