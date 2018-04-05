@@ -12,7 +12,8 @@ So you have built a web service using the popular React/Angular/Vue javascript f
 The benefits are:
 
 1. No toolchain changes for the web server
-2. Still enjoy the hot loading during web development
+2. No need to enable cross-origin resource sharing (CORS) on the client side
+3. Still enjoy the hot loading during web development
 
 The architecture now looks like this:
 
